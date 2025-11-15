@@ -1,4 +1,4 @@
-import { bedrock, model } from "../../../lib/client";
+import { bedrock, model } from "../../lib/client";
 import { Agent } from "@mastra/core/agent";
 import { Memory } from "@mastra/memory";
 import { LibSQLStore } from "@mastra/libsql";

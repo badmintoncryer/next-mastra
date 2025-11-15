@@ -1,4 +1,4 @@
-import { mastra } from "../../../src/mastra"; // Adjust the import path if necessary
+import { mastra } from "../../../mastra"; // Adjust the import path if necessary
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
