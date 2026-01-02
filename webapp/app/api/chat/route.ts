@@ -4,11 +4,15 @@ import { mastra } from "../../../mastra"; // Adjust the import path if necessary
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  // Extract the messages from the request body
-  const { messages } = await req.json();
+  // Extract the messages and optional agentName from the request body
+  const { messages, agentName } = await req.json();
 
-  // Get the chefAgent instance from Mastra
-  const agent = mastra.getAgent("chefAgent");
+  // Determine which agent to use based on the request
+  // Default to chefAgent if not specified
+  const selectedAgentName = agentName || "chefAgent";
+
+  // Get the agent instance from Mastra
+  const agent = mastra.getAgent(selectedAgentName);
 
   // Stream the response using the agent
   const result = await agent.stream(messages);

@@ -21,13 +21,24 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useState, useMemo } from "react";
 
 export const Assistant = () => {
-  const runtime = useChatRuntime({
-    transport: new AssistantChatTransport({
-      api: "/api/chat",
-    }),
-  });
+  const [selectedAgent, setSelectedAgent] = useState("cdkReportAgent");
+
+  const runtime = useChatRuntime(
+    useMemo(
+      () => ({
+        transport: new AssistantChatTransport({
+          api: "/api/chat",
+          body: {
+            agentName: selectedAgent,
+          },
+        }),
+      }),
+      [selectedAgent]
+    )
+  );
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
@@ -55,6 +66,20 @@ export const Assistant = () => {
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
+              <div className="ml-auto flex items-center gap-2">
+                <label htmlFor="agent-select" className="text-sm font-medium">
+                  Agent:
+                </label>
+                <select
+                  id="agent-select"
+                  value={selectedAgent}
+                  onChange={(e) => setSelectedAgent(e.target.value)}
+                  className="rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {/* <option value="chefAgent">Chef Agent</option> */}
+                  <option value="cdkReportAgent">CDK Report Agent</option>
+                </select>
+              </div>
             </header>
             <div className="flex-1 overflow-hidden">
               <Thread />

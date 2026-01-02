@@ -1,10 +1,11 @@
 import { Mastra } from "@mastra/core";
-import { chefAgent } from "./agents/chefAgent";
+// import { chefAgent } from "./agents/chefAgent";
+import { cdkReportAgent } from "./agents/cdkReportAgent";
 import { PinoLogger } from "@mastra/loggers";
 import { LibSQLStore } from "@mastra/libsql";
 
 export const mastra = new Mastra({
-  agents: { chefAgent },
+  agents: { cdkReportAgent },
   storage: new LibSQLStore({
     // stores observability, scores, ... into memory storage, if it needs to
     // persist, change to file:../mastra.db
@@ -14,10 +15,6 @@ export const mastra = new Mastra({
     name: "Mastra",
     level: "info",
   }),
-  telemetry: {
-    // Telemetry is deprecated and will be removed in the Nov 4th release
-    enabled: false,
-  },
   observability: {
     // Enables DefaultExporter and CloudExporter for AI tracing
     default: { enabled: true },
